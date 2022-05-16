@@ -13,14 +13,13 @@ inputElement.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
 
 function onSearch(e) {
     e.preventDefault();
-    console.log(e.target.value);
-  if (e.target.value !== "") {fetchCountries(e.target.value.trim()).then(countries => {
+  if (e.target.value.trim()) {fetchCountries(e.target.value.trim()).then(countries => {
         if (countries.length > 10) {
             listElement.innerHTML = "";
             infoElement.innerHTML = "";
             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.")
         }
-        else if (countries.length >= 2 && countries.length < 10) { infoElement.innerHTML = ""; renderCountriesName(countries); }
+        else if (countries.length >= 2 && countries.length <= 10) { infoElement.innerHTML = ""; renderCountriesName(countries); }
         else { listElement.innerHTML = ""; renderCountriesInfo(countries)}
         
     }).catch(error => {
